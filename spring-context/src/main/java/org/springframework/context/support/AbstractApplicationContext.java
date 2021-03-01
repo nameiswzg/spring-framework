@@ -189,7 +189,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	/** Flag that indicates whether this context has been closed already. */
 	private final AtomicBoolean closed = new AtomicBoolean();
 
-	/** Synchronization monitor for the "refresh" and "destroy". */
+	/** 同步监视器，用于“刷新”和“销毁”。*/
 	private final Object startupShutdownMonitor = new Object();
 
 	/** Reference to the JVM shutdown hook, if registered. */
@@ -517,6 +517,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	public void refresh() throws BeansException, IllegalStateException {
 		synchronized (this.startupShutdownMonitor) {
 			// Prepare this context for refreshing.
+			//准备对context进行刷新
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
@@ -533,15 +534,17 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
+				//打断bean的创建，注册bean processors。
 				registerBeanPostProcessors(beanFactory);
 
-				// Initialize message source for this context.
+				// context 初始化消息源
 				initMessageSource();
 
 				// Initialize event multicaster for this context.
 				initApplicationEventMulticaster();
 
 				// Initialize other special beans in specific context subclasses.
+				//在特别的子类中，初始化特殊bean
 				onRefresh();
 
 				// Check for listener beans and register them.

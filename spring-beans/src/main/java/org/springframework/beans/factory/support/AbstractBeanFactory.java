@@ -246,7 +246,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		String beanName = transformedBeanName(name);
 		Object bean;
 
-		// Eagerly check singleton cache for manually registered singletons.
+		// 认真检查单例缓存中是否有手动注册的单例，没有的话进行一个单例注册
 		Object sharedInstance = getSingleton(beanName);
 		if (sharedInstance != null && args == null) {
 			if (logger.isTraceEnabled()) {
@@ -382,7 +382,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			}
 		}
 
-		// Check if required type matches the type of the actual bean instance.
+		// 检查想要的bean与实际的bean是否相等
 		if (requiredType != null && !requiredType.isInstance(bean)) {
 			try {
 				T convertedBean = getTypeConverter().convertIfNecessary(bean, requiredType);
@@ -1191,10 +1191,9 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	//---------------------------------------------------------------------
 
 	/**
-	 * Return the bean name, stripping out the factory dereference prefix if necessary,
-	 * and resolving aliases to canonical names.
-	 * @param name the user-specified name
-	 * @return the transformed bean name
+	 * 返回Bean名称，必要时去除工厂取消引用前缀，并将别名解析为规范名称
+	 * @param name 用户指定的名称
+	 * @return 转换后的bean名称
 	 */
 	protected String transformedBeanName(String name) {
 		return canonicalName(BeanFactoryUtils.transformedBeanName(name));

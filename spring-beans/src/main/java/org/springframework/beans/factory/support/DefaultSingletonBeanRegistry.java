@@ -74,7 +74,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	private static final int SUPPRESSED_EXCEPTIONS_LIMIT = 100;
 
 
-	/** Cache of singleton objects: bean name to bean instance. */
+	/** 单例对象的缓存: singletonObjects：{bean名称，bean实例} */
 	private final Map<String, Object> singletonObjects = new ConcurrentHashMap<>(256);
 
 	/** Cache of singleton factories: bean name to ObjectFactory. */
@@ -86,7 +86,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	/** Set of registered singletons, containing the bean names in registration order. */
 	private final Set<String> registeredSingletons = new LinkedHashSet<>(256);
 
-	/** Names of beans that are currently in creation. */
+	/** 当前正在创建的bean */
 	private final Set<String> singletonsCurrentlyInCreation =
 			Collections.newSetFromMap(new ConcurrentHashMap<>(16));
 
@@ -169,9 +169,8 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	}
 
 	/**
-	 * Return the (raw) singleton object registered under the given name.
-	 * <p>Checks already instantiated singletons and also allows for an early
-	 * reference to a currently created singleton (resolving a circular reference).
+	 * 返回以给定名称注册的（原始）单例对象。
+	 * <p>检查已经实例化的单例，并且还允许对当前创建的单例的早期引用（解析循环引用）。
 	 * @param beanName the name of the bean to look for
 	 * @param allowEarlyReference whether early references should be created or not
 	 * @return the registered singleton object, or {@code null} if none found
